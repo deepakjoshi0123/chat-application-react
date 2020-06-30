@@ -5,14 +5,14 @@ import closeIcon from '../../icons/closeIcon.png';
 
 import './chatheading.css';
 
-const chatheading = ({ room }) => (
+const chatheading = ({ room ,chatlist}) => (
   <div className="infoBar">
     <div className="leftInnerContainer">
-  <img className="onlineIcon" src={onlineIcon} alt="online icon" />
+  {!chatlist?<img className="onlineIcon" src={onlineIcon} alt="online icon" />:null}
       <h3>{room}</h3>
     </div>
     <div className="rightInnerContainer">
- <a href="/"><img src={closeIcon} alt="close icon" /></a>
+ {!chatlist?<a href="/"><img src={closeIcon} alt="close icon" /></a>:null}
     </div>
   </div>
 );

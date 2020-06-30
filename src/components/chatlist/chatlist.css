@@ -1,10 +1,14 @@
 .textContainer {
+  width: 600px;
+  box-shadow: 0 4px 8px 0 rgb(238, 227, 227);
+  transition: 0.3s;
   display: flex;
   flex-direction: column;
-  margin-left: 100px;
+  margin-right: 10px;
   color: white;
   height: 90%;
   justify-content: space-between;
+  background-color: rgb(208, 202, 214);
 }
 
 .activeContainer {

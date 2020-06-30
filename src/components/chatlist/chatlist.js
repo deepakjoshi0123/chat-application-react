@@ -1,14 +1,13 @@
 import React from 'react';
 
 import onlineIcon from '../../icons/onlineIcon.png';
-
+import Charhead from '../chatheading/chatheading'
 import './chatlist.css';
 
-const TextContainer = ({ users }) => (
+const TextContainer = ({ users , chatlist }) => (
   <div className="textContainer">
     <div>
-      <h1>Realtime Chat Application</h1>
-      <h2>List of people joined the chat</h2>
+      <Charhead  room="Your  Contact  List " chatlist={chatlist} />
     </div>
     {
       users

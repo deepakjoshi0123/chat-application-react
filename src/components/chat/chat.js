@@ -37,7 +37,7 @@ const Chat = ({ location }) => {
 
   const sendMessage = (event) => {
     event.preventDefault();
-
+    console.log(setUsers)
     if(message) {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
@@ -45,12 +45,12 @@ const Chat = ({ location }) => {
 
   return (
     <div className="outerContainer">
+       <Chatlist users={users} chatlist={true}/>
       <div className="container">
           <Chatheading room={room} />
           {/* <Messages messages={messages} name={name} /> */}
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
-      <Chatlist users={users}/>
     </div>
   );
 }
