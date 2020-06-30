@@ -4,9 +4,9 @@
   transition: 0.3s;
   display: flex;
   flex-direction: column;
-  margin-right: 10px;
+  margin-right: 2px;
   color: white;
-  height: 90%;
+  height: 99%;
   justify-content: space-between;
   background-color: rgb(208, 202, 214);
 }
