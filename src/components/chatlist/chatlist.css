@@ -8,18 +8,38 @@
   color: white;
   height: 99%;
   justify-content: space-between;
-  background-color: rgb(208, 202, 214);
+  background-color: rgb(238, 238, 245);
 }
 
 .activeContainer {
+  width: 100%;
   display: flex;
   align-items: center;
-  margin-bottom: 50%;
+  margin-bottom: 100%;
+}
+ul {
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  
+  margin-left: calc(50% - 50vw);
+  width: 99vw;
+  font-size: medium;
+  border-radius: 20px; 
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #209734;
+  padding: 25px;
 }
 
 .activeItem {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .activeContainer img {
@@ -27,7 +47,7 @@
 }
 
 .textContainer h1 {
-  margin-bottom: 0px;
+  margin-bottom: 1px;
 }
 
 @media (min-width: 320px) and (max-width: 1200px) {

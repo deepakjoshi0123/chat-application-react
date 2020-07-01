@@ -1,26 +1,28 @@
 import React from 'react';
-import onlineIcon from '../../icons/onlineIcon.png';
-import Charhead from '../chatheading/chatheading'
+import Charhead from '../chatheading/chatheading' ;
 import './chatlist.css';
 
-const TextContainer = ({ users , chatlist }) => (
+const Chatlist= ( props ) => (
   <div className="textContainer">
     <div>
-      <Charhead  room="Your  Contact  List " chatlist={chatlist} />
-      
+      <Charhead  room="Your  Contact  List " />
+     
     </div>
     {
-      users
+      props.users
         ? (
           <div>
-            <h1>People currently chatting:</h1>
-            <div className="activeContainer">
+            <div className="activeContainer">(
               <h2>
-            {users.map(({name}) => (
-            <div key={name} className="activeItem">
-              {name}
-           <img alt="Online Icon" src={onlineIcon}/>
-            </div>
+            {
+              props.users.map((user) => (
+            <div key={user} className="activeItem">
+            <ul> 
+             <li >
+             { user.name }  
+             </li> 
+             </ul>
+            </div> 
               ))}
               </h2>
             </div>
@@ -31,4 +33,4 @@ const TextContainer = ({ users , chatlist }) => (
   </div>
 );
 
-export default TextContainer;
+export default Chatlist;

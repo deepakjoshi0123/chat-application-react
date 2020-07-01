@@ -19,7 +19,7 @@ const Chat = ({ location }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   
-  const ENDPOINT = 'https://localhost:3000/';
+  const ENDPOINT = 'localhost:3001';
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -44,13 +44,15 @@ const Chat = ({ location }) => {
     socket.on("roomData", ({ users }) => {  // waiting for the users of a particular room 
       setUsers(users);
     });
+   
+     
 }, []); 
- 
+  
   const sendMessage = (event) => {
+   
     event.preventDefault();
     if(message) {
-      setMessages(messages => [ ...messages, message ]); //just for checking 
-      setMessage('');
+      // setMessages(messages => [ ...messages, message ]); //just for checking { this wasted 2 hours }
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   }
@@ -58,9 +60,8 @@ const Chat = ({ location }) => {
   return (
     <div className="outerContainer">
        <Chatlist users={users} chatlist={true}/>
-      <div className="container">
+       <div className="container">
           <Chatheading room={room} />
-          {console.log(messages)}
           <Messages messages={messages} name={name} />
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
