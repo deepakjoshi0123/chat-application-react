@@ -1,5 +1,3 @@
-
-
 * {
   box-sizing: border-box;
 }
@@ -10,7 +8,7 @@
   text-align: center;
   height: 600px;
   align-items: center;
-  background-color: #1A1A1D;
+  background-color: #042e31;
 }
 
 .joinInnerContainer {
@@ -18,7 +16,7 @@
 }
 
 .joinInput {
-  border-radius: 0;
+  border-radius: 20px;
   padding: 15px 20px;
   width: 100%;
 }
@@ -31,15 +29,16 @@
 }
 
 .button {
-    color: #fff !important;
-    text-transform: uppercase;
-    text-decoration: none;
-    background: rgb(3, 110, 12);
-    padding: 20px;
-    border-radius: 5px;
-    display: inline-block;
-    border: none;
-    width: 100%;
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: rgb(13, 146, 163);
+  padding: 20px;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  width: 30%;
+  margin-left: 8px;
 }
 
 .mt-20 {
@@ -54,8 +53,6 @@
   .joinInnerContainer {
     width: 90%;
   }
-
-
 }
 
 button:focus {
