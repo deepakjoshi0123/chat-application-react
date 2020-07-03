@@ -15,7 +15,7 @@ const chatheading = ({ room, chatlist }) => (
     </div>
     <div className="rightInnerContainer">
       {!chatlist ? (
-        <a href="/login">
+        <a href="/">
           <img src={closeIcon} alt="close icon" />
         </a>
       ) : null}
