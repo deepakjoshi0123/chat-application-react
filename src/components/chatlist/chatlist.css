@@ -30,8 +30,15 @@
 }
 
 .img {
+  margin: 3px;
   border-radius: 50%;
   height: 40px;
+}
+
+.imgOnline {
+  margin: 3px;
+  border-radius: 50%;
+  height: 10px;
 }
 
 .activeItem {

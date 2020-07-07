@@ -20,11 +20,15 @@ export default function SignIn() {
       room: room,
     };
 
-    axios.post("http://localhost:3001", user).then((res) => {
-      if (res) {
-        setAuthToChatfunc(true);
-      }
-    });
+    if (!email || !room || !password) return;
+    else {
+      axios.post("http://localhost:3001", user).then((res) => {
+        if (res.data.response) {
+          setAuthToChatfunc(true);
+          console.log("response ", res, setAuthToChat);
+        }
+      });
+    }
   };
 
   return (
@@ -74,14 +78,11 @@ export default function SignIn() {
             onChange={(event) => setRoom(event.target.value)}
           />
         </div>
-
         <Link
           onClick={(e) =>
-            !email || !room || !password || setAuthToChat === false
-              ? e.preventDefault()
-              : null
+            !email || !room || !password ? e.preventDefault() : null
           }
-          to={`/login`}
+          to={`/`}
         >
           <button className={"button mt-20"} type="submit" onClick={sentTOdb}>
             Login

@@ -1,7 +1,7 @@
 .outerContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
   height: 100vh;
   background-color: rgb(70, 117, 73);
 }

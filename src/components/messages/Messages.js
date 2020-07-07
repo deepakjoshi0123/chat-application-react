@@ -1,16 +1,26 @@
-import React from 'react';
+import React from "react";
 
-import ScrollToBottom from 'react-scroll-to-bottom';
+import ScrollToBottom from "react-scroll-to-bottom";
+import Friendreq from "../modal/friendreq";
+import Message from "./message/Message";
 
-import Message from './message/Message';
+import "./Messages.css";
 
-import './Messages.css';
-
-const Messages = ({ messages, name }) => (
+const Messages = ({ messages, email, frndreq, setfriendreq, acptreqfunc }) => (
   <ScrollToBottom className="messages">
-    {console.log("see msgs ", messages)}
-    {messages.map((message, i) => <div key={i}><Message message={message} name={name}/></div>)}
+    {messages.map((message, i) => (
+      <div key={i}>
+        <Message message={message} email={email} />
+      </div>
+    ))}
+    {frndreq ? (
+      <Friendreq
+        frndreqName={frndreq}
+        setfriendreq={setfriendreq}
+        acptreqyou={acptreqfunc}
+      />
+    ) : null}
   </ScrollToBottom>
 );
 
-export default Messages; 
+export default Messages;
