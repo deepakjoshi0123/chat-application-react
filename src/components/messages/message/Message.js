@@ -21,7 +21,8 @@ const Message = ({ message: { text, user, time }, email }) => {
   ) : (
     <div className="messageContainer justifyEnd">
       <p className="sentText pr-10">{" you "}</p>
-      <p className="sentText pl-10 ">{time}</p>
+      <p className="sentText pl-10 ">{time} </p>
+
       <div className="messageBox backgroundBlue">
         <p className="messageText colorWhite">{text}</p>
       </div>

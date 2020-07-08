@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
 import Chatlist from "../chatlist/chatlist";
-import Messages from "../messages/Messages";
 import Chatheading from "../chatheading/chatheading";
 import Input from "../input/Input";
 
@@ -16,9 +15,10 @@ const Chat = ({ location }) => {
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+
   const [frndreq, setfrndreq] = useState("");
 
-  const [activetab, setactivetab] = useState("");
+  const [activetab, setactivetab] = useState("cj");
 
   // if emit.to() works
 
@@ -32,6 +32,7 @@ const Chat = ({ location }) => {
     const { email, room } = queryString.parse(location.search);
     socket = io(ENDPOINT);
     setRoom(room);
+    console.log("is room updated ", room);
     //setMessage('hello')
     setchattabs((chattabs) => [...chattabs, room]);
     setemail(email);
@@ -50,13 +51,32 @@ const Chat = ({ location }) => {
     socket.on("acceptfrndreq", ({ usrfrnd }) => {
       console.log("got reply from ", usrfrnd);
       // if (chattabs.includes(usrfrnd) === false) {
-      setchattabs((chattabs) => [...chattabs, usrfrnd]);
+      //setchattabs((chattabs) => [...chattabs, usrfrnd]);
       //}
     }); // here we will confrimation of getting frnd req accpeted
+    console.log("messaegsa --??? ", messages);
+    //??????????????????????????????????????????????????????????????????????????????????????????????????
 
     socket.on("message", (message) => {
-      setMessages((messages) => [...messages, message]);
+      // console.log("new incoming  ", message);
+      let copy = messages; // i know i am mutating same address location but spread is not working
+      //console.log("check state --- > ", copy, messages);
+
+      if (copy[message.addto] === undefined) {
+        copy[message.addto] = []; //
+      }
+
+      // console.log("prev messages", copy);
+      copy[message.addto].push(message); // how to convert 0 to message.addto ??
+      // console.log("after updating", copy);
+
+      // console.log("is it running ", setMessages(copy));
+      setMessages(copy);
+      // console.log("lets' check state", messages);
+      // setMessages((messages) => [...messages, message]);  older version
+      //???????????????????????????????????????????????????????????????????????????????????????????????
     });
+    console.log("lets' check state", messages);
 
     socket.on("1to1message", ({ msg, user, frnd }) => {
       setfrndreq(user);
@@ -67,12 +87,13 @@ const Chat = ({ location }) => {
       // waiting for the users of a particular room
       setUsers(users);
     });
-  }, []);
+  }, [messages]);
 
   //_______________________________________________________________________________________________
   //_______________________________________________________________________________________________
 
   const acptreqfuncbyyou = (usrfrnd) => {
+    console.log("am i clicked ??");
     acceptreqfncyou(true);
     setfrndreq("");
     if (chattabs.includes(usrfrnd) === false) {
@@ -86,9 +107,6 @@ const Chat = ({ location }) => {
   //--------------------------------------for one to chat ------------------
 
   const setusrmsg = (user, usrfrnd) => {
-    // if (chattabs.includes(usrfrnd) === false) {
-    //   setchattabs((chattabs) => [...chattabs, usrfrnd]);
-    // }
     socket.emit("1to1message", {
       message: "ready for one to one chat ",
       user,
@@ -101,6 +119,7 @@ const Chat = ({ location }) => {
   const sendMessage = (event) => {
     event.preventDefault();
     if (message) {
+      console.log("message emitted ");
       // setMessages(messages => [ ...messages, message ]); //just for checking { this wasted 2 hours }
       socket.emit("sendMessage", message, activetab, () => setMessage(""));
     }
@@ -116,16 +135,19 @@ const Chat = ({ location }) => {
       />
 
       <div className="container">
-        <Chatheading room={room} chattabs={chattabs} activetab={setactivetab} />
-        {/* {this will change which tab is active and according to that we will send sg to that user} */}
-        <Messages
-          messages={messages}
+        <Chatheading
+          room={room}
+          chattabs={chattabs}
+          activetab={setactivetab}
+          messages={messages} // or should i send complete 2d array
           email={email}
           frndreq={frndreq}
           setfriendreq={setfrndreq}
           acptreqfunc={acptreqfuncbyyou}
           acceptreq={acceptreqyou}
         />
+        {/* {this will change which tab is active and according to that we will send sg to that user} */}
+
         <Input
           message={message}
           setMessage={setMessage}
