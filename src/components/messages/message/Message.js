@@ -9,7 +9,6 @@ const Message = ({ message: { text, user, time }, email }) => {
   if (user === trimmedName) {
     isSentByCurrentUser = true;
   }
-
   return !isSentByCurrentUser ? (
     <div className="messageContainer justifyStart">
       <div className="messageBox backgroundLight">

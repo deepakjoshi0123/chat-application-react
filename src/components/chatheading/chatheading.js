@@ -61,6 +61,7 @@ export default function ScrollableTabsButtonForce(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
+        {props.chattabs ? <p></p> : null}
         <Tabs
           value={value}
           onChange={handleChange}
@@ -73,46 +74,43 @@ export default function ScrollableTabsButtonForce(props) {
           {props.chattabs ? (
             <div>
               {props.chattabs.map((user, i) => (
-                <Tab
-                  key={i}
-                  label={user}
-                  icon={<MessageIcon />}
-                  {...a11yProps(i)}
-                />
+                // <div>
+                // {console.log(a11yProps(i))}
+                <Tab label={user} icon={<MessageIcon />} {...a11yProps(i)} />
+                // </div>
               ))}
             </div>
           ) : null}
 
           {/* <Tab label="Item One" icon={<MessageIcon />} {...a11yProps(0)} />
           <Tab label="Item Two" icon={<MessageIcon />} {...a11yProps(1)} />
-          <Tab label="Item Three" icon={<MessageIcon />} {...a11yProps(2)} />
-         */}
+          <Tab label="Item Three" icon={<MessageIcon />} {...a11yProps(2)} /> */}
         </Tabs>
       </AppBar>
       {props.chattabs ? (
         <div>
-          {console.log("yes iam in", props.messages)}
-          {Object.keys(props.messages).map((users, i) => {
-            console.log("lets users ", users);
-            return props.messages[users].map((
-              user,
-              i // will remove O(n3) later
-            ) => (
-              <TabPanel key={i} value={value} index={i}>
-                {console.log("is is good ", user)}
-                {
-                  <Messages
-                    messages={props.messages[users]} // or should i send complete 2d array
-                    email={props.email}
-                    frndreq={props.frndreq}
-                    setfriendreq={props.setfrndreq}
-                    acptreqfunc={props.acptreqfunc}
-                    acceptreq={props.acceptreqyou}
-                  />
-                }
-              </TabPanel>
-            ));
-          })}
+          {/* {console.log("yes iam in", props.messages)} */}
+          {Object.keys(props.messages).map((users, i) => (
+            //{
+            // console.log("lets users ", users);
+            //return props.messages[users].map((
+            // user,
+            // i // will remove O(n3) later
+            // ) => (
+            <TabPanel key={i} value={value} index={i}>
+              {/* {console.log("is is good ", user)} */}
+              {
+                <Messages
+                  messages={props.messages[users]} // or should i send complete 2d array
+                  email={props.email}
+                  frndreq={props.frndreq}
+                  setfriendreq={props.setfrndreq}
+                  acptreqfunc={props.acptreqfunc}
+                  acceptreq={props.acceptreqyou}
+                />
+              }
+            </TabPanel>
+          ))}
         </div>
       ) : null}
 

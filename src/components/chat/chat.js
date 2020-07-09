@@ -15,6 +15,7 @@ const Chat = ({ location }) => {
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [addtab, setaddtab] = useState(false);
 
   const [frndreq, setfrndreq] = useState("");
 
@@ -32,8 +33,7 @@ const Chat = ({ location }) => {
     const { email, room } = queryString.parse(location.search);
     socket = io(ENDPOINT);
     setRoom(room);
-    console.log("is room updated ", room);
-    //setMessage('hello')
+
     setchattabs((chattabs) => [...chattabs, room]);
     setemail(email);
     socket.emit("join", { email, room }, (error) => {
@@ -49,12 +49,13 @@ const Chat = ({ location }) => {
     // waiting for the msg from backend
 
     socket.on("acceptfrndreq", ({ usrfrnd }) => {
-      console.log("got reply from ", usrfrnd);
-      // if (chattabs.includes(usrfrnd) === false) {
-      //setchattabs((chattabs) => [...chattabs, usrfrnd]);
-      //}
+      //console.log("usrfnd ", usrfrnd);
+      //window.alert("friend req accepted by  ", usrfrnd);
+      if (chattabs.includes(usrfrnd) === false) {
+        setchattabs((chattabs) => [...chattabs, usrfrnd]);
+      }
     }); // here we will confrimation of getting frnd req accpeted
-    console.log("messaegsa --??? ", messages);
+    //console.log("messaegsa --??? ", messages);
     //??????????????????????????????????????????????????????????????????????????????????????????????????
 
     socket.on("message", (message) => {
@@ -76,7 +77,6 @@ const Chat = ({ location }) => {
       // setMessages((messages) => [...messages, message]);  older version
       //???????????????????????????????????????????????????????????????????????????????????????????????
     });
-    console.log("lets' check state", messages);
 
     socket.on("1to1message", ({ msg, user, frnd }) => {
       setfrndreq(user);
@@ -94,19 +94,20 @@ const Chat = ({ location }) => {
 
   const acptreqfuncbyyou = (usrfrnd) => {
     console.log("am i clicked ??");
-    acceptreqfncyou(true);
     setfrndreq("");
     if (chattabs.includes(usrfrnd) === false) {
       setchattabs((chattabs) => [...chattabs, usrfrnd]);
     }
-    socket.emit("acceptfrndreq", email);
-    console.log("request emitted");
+
+    socket.emit("acceptfrndreq", email, usrfrnd);
+    console.log("request emitted", email, usrfrnd);
     //emit for accpet req check if want to the same for specfic user
   };
 
   //--------------------------------------for one to chat ------------------
 
   const setusrmsg = (user, usrfrnd) => {
+    setaddtab(true);
     socket.emit("1to1message", {
       message: "ready for one to one chat ",
       user,
