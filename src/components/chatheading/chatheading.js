@@ -55,13 +55,13 @@ export default function ScrollableTabsButtonForce(props) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
+    console.log("newvalue", event, newValue);
     setValue(newValue);
   };
 
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
-        {props.chattabs ? <p></p> : null}
         <Tabs
           value={value}
           onChange={handleChange}
@@ -71,17 +71,16 @@ export default function ScrollableTabsButtonForce(props) {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          {props.chattabs ? (
-            <div>
-              {props.chattabs.map((user, i) => (
-                // <div>
-                // {console.log(a11yProps(i))}
-                <Tab label={user} icon={<MessageIcon />} {...a11yProps(i)} />
-                // </div>
-              ))}
-            </div>
-          ) : null}
-
+          {props.chattabs
+            ? props.chattabs.map((user, i) => (
+                <Tab
+                  key={i}
+                  label={user}
+                  icon={<MessageIcon />}
+                  {...a11yProps(i)}
+                />
+              ))
+            : null}
           {/* <Tab label="Item One" icon={<MessageIcon />} {...a11yProps(0)} />
           <Tab label="Item Two" icon={<MessageIcon />} {...a11yProps(1)} />
           <Tab label="Item Three" icon={<MessageIcon />} {...a11yProps(2)} /> */}
@@ -100,14 +99,17 @@ export default function ScrollableTabsButtonForce(props) {
             <TabPanel key={i} value={value} index={i}>
               {/* {console.log("is is good ", user)} */}
               {
-                <Messages
-                  messages={props.messages[users]} // or should i send complete 2d array
-                  email={props.email}
-                  frndreq={props.frndreq}
-                  setfriendreq={props.setfrndreq}
-                  acptreqfunc={props.acptreqfunc}
-                  acceptreq={props.acceptreqyou}
-                />
+                <div>
+                  <p>{value}</p>
+                  <Messages
+                    messages={props.messages[users]} // or should i send complete 2d array
+                    email={props.email}
+                    frndreq={props.frndreq}
+                    setfriendreq={props.setfrndreq}
+                    acptreqfunc={props.acptreqfunc}
+                    acceptreq={props.acceptreqyou}
+                  />
+                </div>
               }
             </TabPanel>
           ))}
